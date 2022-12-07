@@ -50,7 +50,7 @@ jobs:
         echo DEBUG='True' >> .env
         echo REDIS='redis://redis:6379/0' >> .env
         echo ALLOWED_HOSTS='127.0.0.1,localhost,0.0.0.0,' >> .env
-        echo SENTRY_KEY='https://9ce1a2fa0fe944c184efb35828609765@o4504187268431872.ingest.sentry.io/4504187269283840' >> .env
+        echo SENTRY_KEY='https://f6abc127f5b94602838ff3fd2d8af2fd@o4504282536083456.ingest.sentry.io/4504282537656321' >> .env
         echo INTERNAL_IPS='127.0.0.1,localhost,0.0.0.0,' >> .env
         echo CORS_ORIGIN_WHITELIST='http://localhost,http://localhost:3000,http://127.0.0.1:3000' >> .env
         echo ALLOWED_CORS_ORIGIN_HOSTS='http://localhost,http://localhost:3000,http://127.0.0.1:3000' >> .env
