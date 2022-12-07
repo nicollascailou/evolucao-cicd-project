@@ -2,9 +2,9 @@ name: Aula P8 CI-CD
 
 on:
   push:
-    branches: [ main, develop, feature/**, bugfix/**, hotfix/** ]
+    branches: [ master, develop, feature/**, bugfix/**, hotfix/** ]
   pull_request:
-    branches: [ main, develop, feature/**, bugfix/**, hotfix/** ]
+    branches: [ master, develop, feature/**, bugfix/**, hotfix/** ]
 
 jobs:
   build:
