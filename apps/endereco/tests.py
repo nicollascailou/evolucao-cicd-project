@@ -38,4 +38,4 @@ class EnderecoTestCase(TestCase):
         model = model_to_dict(endereco, exclude=["id"])
 
         self.assertEquals(data, model)
-        #self.assertNotEquals(model["logradouro"], "")
+        self.assertNotEquals(model["logradouro"], "")
