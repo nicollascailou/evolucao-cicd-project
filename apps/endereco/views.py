@@ -1,10 +1,11 @@
 import json
-from django.forms import model_to_dict
-from django.http import HttpResponse, JsonResponse
+
 import requests
-from django.shortcuts import render
+from django.forms import model_to_dict
+from django.http import JsonResponse
 
 from apps.endereco.models import Endereco
+
 
 # Create your views here.
 
