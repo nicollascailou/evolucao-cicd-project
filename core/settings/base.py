@@ -82,7 +82,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "knox",
     # core apps
-    "apps.endereco",
+    "apps.pokemon",
 ]
 
 REST_KNOX = {

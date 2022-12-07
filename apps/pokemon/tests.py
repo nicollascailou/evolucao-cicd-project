@@ -4,13 +4,13 @@ from django.test import TestCase
 import factory
 import requests
 
-from apps.endereco.models import Endereco
+from apps.pokemon.models import Pokemon
 
 
 # Create your tests here.
-class EnderecoFactory(factory.Factory):
+class PokemonFactory(factory.Factory):
     class Meta:
-        model = Endereco
+        model = Pokemon
 
 
 class EnderecoTestCase(TestCase):
@@ -22,7 +22,7 @@ class EnderecoTestCase(TestCase):
 
         data = json.loads(req.text)
 
-        endereco = EnderecoFactory()
+        endereco = PokemonFactory()
         endereco.cep = data["cep"]
         endereco.logradouro = data["logradouro"]
         endereco.complemento = data["complemento"]

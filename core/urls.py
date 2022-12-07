@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from apps.endereco.views import cadastrar_endereco_cep, buscar_cep
+from apps.pokemon.views import register_pokemon_by_name, buscar_cep
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("cadastrar-cep/<str:cep>", cadastrar_endereco_cep, name="cadastrar_cep"),
+    path("cadastrar-cep/<str:cep>", register_pokemon_by_name, name="cadastrar_cep"),
     path("buscar-cep/<str:cep>", buscar_cep, name="buscar_cep"),
 ]

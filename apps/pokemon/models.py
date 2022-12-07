@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 
-class Endereco(models.Model):
+class Pokemon(models.Model):
 
     cep = models.CharField(max_length=9)
     logradouro = models.CharField(max_length=255)
