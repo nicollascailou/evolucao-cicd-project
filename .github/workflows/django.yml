@@ -1,0 +1,73 @@
+name: Aula P8 CI-CD
+
+on:
+  push:
+    branches: [ main, develop, feature/**, bugfix/**, hotfix/** ]
+  pull_request:
+    branches: [ main, develop, feature/**, bugfix/**, hotfix/** ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+    strategy:
+      max-parallel: 4
+      matrix:
+        db: [sqlite, postgres]
+        python-version: [3.10.8]
+        include:
+          - db: postgres
+            db_port: 5432
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ci-cd-test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Instalando as dependencias do Python
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-dev.txt
+        pip install braintree apprise
+    - name: Criando arquivo de configurações de ambiente
+      run: |
+        touch .env
+        echo ENV='dev' >> .env
+        echo SECRET_KEY='p8-ci-cd-test' >> .env
+        echo DEBUG='True' >> .env
+        echo REDIS='redis://redis:6379/0' >> .env
+        echo ALLOWED_HOSTS='127.0.0.1,localhost,0.0.0.0,' >> .env
+        echo SENTRY_KEY='https://9ce1a2fa0fe944c184efb35828609765@o4504187268431872.ingest.sentry.io/4504187269283840' >> .env
+        echo INTERNAL_IPS='127.0.0.1,localhost,0.0.0.0,' >> .env
+        echo CORS_ORIGIN_WHITELIST='http://localhost,http://localhost:3000,http://127.0.0.1:3000' >> .env
+        echo ALLOWED_CORS_ORIGIN_HOSTS='http://localhost,http://localhost:3000,http://127.0.0.1:3000' >> .env
+        cat .env
+    - name: Linter
+      run: |
+        black .
+    - name: Python Manage Comandos Iniciais
+      run: |
+        python manage.py makemigrations
+        python manage.py migrate
+    - name: Run Tests
+      env:
+        DB: ${{ matrix.db }}
+        DB_HOST: 127.0.0.1
+        DB_PORT: ${{ matrix.db_port }}
+        DB_PASSWORD: ci-cd-test
+      run: |
+        python manage.py runserver &
+        python manage.py test
