@@ -22,7 +22,7 @@ def register_pokemon_by_name(request, name):
     return JsonResponse(model)
 
 
-def buscar_cep(request, name):
+def buscar_name(request, name):
     pokemon = Pokemon.objects.get(cep=name)
 
     model = model_to_dict(pokemon)

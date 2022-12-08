@@ -13,29 +13,25 @@ class PokemonFactory(factory.Factory):
         model = Pokemon
 
 
-class EnderecoTestCase(TestCase):
+class PokemonTestCase(TestCase):
     def setUp(self):
-        self.numero_cep = 58900000
+        self.name = "pikachu"
 
-    def test_cadastrar_cep_errado(self):
-        req = requests.get(f"https://viacep.com.br/ws/{self.numero_cep}/json/")
+    def test_register_wrong_name(self):
+        req = requests.get(f"https://pokeapi.co/api/v2/pokemon/{self.name}/")
 
         data = json.loads(req.text)
 
-        endereco = PokemonFactory()
-        endereco.cep = data["cep"]
-        endereco.logradouro = data["logradouro"]
-        endereco.complemento = data["complemento"]
-        endereco.bairro = data["bairro"]
-        endereco.localidade = data["localidade"]
-        endereco.uf = data["uf"]
-        endereco.ibge = data["ibge"]
-        endereco.gia = data["gia"]
-        endereco.ddd = data["ddd"]
-        endereco.siafi = data["siafi"]
-        endereco.save()
+        pokemon = PokemonFactory()
+        pokemon.id = data["id"]
+        pokemon.name = data["name"]
+        pokemon.weight = data["weight"]
+        pokemon.height = data["height"]
+        pokemon.base_experience = data["base_experience"]
 
-        model = model_to_dict(endereco, exclude=["id"])
+        pokemon.save()
 
-        self.assertEquals(data, model)
-        self.assertNotEquals(model["logradouro"], "")
+        model = model_to_dict(pokemon, exclude=["id"])
+
+        ##self.assertEquals(data, model)
+        self.assertNotEquals(model["name"], "")
