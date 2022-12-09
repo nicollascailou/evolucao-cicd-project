@@ -11,8 +11,7 @@ from apps.pokemon.models import Pokemon
 
 
 def register_pokemon_by_name(request, name):
-    req = requests.get(f"https://viacep.com.br/ws/{name}/json/")
-
+    req = requests.get(f"https://pokeapi.co/api/v2/pokemon/{name}/")
     data = json.loads(req.text)
 
     pokemon = Pokemon.objects.create(**data)
@@ -23,7 +22,7 @@ def register_pokemon_by_name(request, name):
 
 
 def buscar_name(request, name):
-    pokemon = Pokemon.objects.get(cep=name)
+    pokemon = Pokemon.objects.get(name=name)
 
     model = model_to_dict(pokemon)
 

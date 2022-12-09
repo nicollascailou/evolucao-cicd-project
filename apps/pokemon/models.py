@@ -9,6 +9,3 @@ class Pokemon(models.Model):
     weight = models.BigIntegerField()
     height = models.BigIntegerField()
     base_experience = models.BigIntegerField()
-
-
-
